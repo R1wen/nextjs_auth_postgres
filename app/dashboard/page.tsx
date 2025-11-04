@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface UserData {
   id: string;
@@ -16,9 +16,9 @@ export default function DashboardPage() {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const localUserData = localStorage.getItem('user_data');
+      const localUserData = localStorage.getItem("user_data");
       if (!localUserData) {
-        router.push('/auth/login');
+        router.push("/auth/login");
         return;
       }
 
@@ -27,7 +27,7 @@ export default function DashboardPage() {
         setUser(userData);
       } catch (e) {
         console.error("Erreur de parsing des données utilisateur:", e);
-        router.push('/auth/login');
+        router.push("/auth/login");
       } finally {
         setIsLoading(false);
       }
@@ -37,13 +37,13 @@ export default function DashboardPage() {
   }, [router]);
 
   const handleLogout = () => {
-    localStorage.removeItem('user_data');
-    router.push('/auth/login');
+    localStorage.removeItem("user_data");
+    router.push("/auth/login");
   };
 
   if (isLoading) {
     return (
-      <div style={styles.container}>
+      <div className="flex justify-center items-center min-h-screen bg-gray-100 p-5">
         <p>Chargement...</p>
       </div>
     );
@@ -54,29 +54,48 @@ export default function DashboardPage() {
   }
 
   return (
-    <div style={styles.container}>
-      <div style={styles.card}>
-        <h1 style={styles.title}>Tableau de bord</h1>
-        
-        <div style={styles.userInfo}>
-          <img 
-            src={`https://api.dicebear.com/7.x/initials/svg?seed=${user.name || user.email}`}
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 p-5">
+      <div className="bg-white rounded-xl p-8 shadow-xl w-full max-w-lg">
+        <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center">
+          Tableau de bord
+        </h1>
+
+        <div className="flex items-center mb-8 border-b pb-8 border-gray-200">
+          <img
+            src={`https://api.dicebear.com/7.x/initials/svg?seed=${
+              user.name || user.email
+            }`}
             alt="Avatar"
-            style={styles.avatar}
+            className="w-20 h-20 rounded-full mr-5 shadow-md"
           />
-          
-          <div style={styles.userDetails}>
+
+          <div className="flex-1">
             {user.name && (
-              <p style={styles.name}>{user.name}</p>
+              <p className="text-xl font-semibold text-gray-900 mb-1">
+                {user.name}
+              </p>
             )}
-            <p style={styles.email}>{user.email}</p>
-            <p style={styles.id}>ID: {user.id}</p>
+            <p className="text-gray-600 text-base mb-1">{user.email}</p>
+            <p className="text-sm text-gray-400">ID: {user.id}</p>
           </div>
         </div>
 
-        <button 
+        <button
           onClick={handleLogout}
-          style={styles.logoutButton}
+          className="
+            w-full 
+            py-3 
+            bg-red-600 
+            text-white 
+            font-semibold 
+            rounded-lg 
+            text-lg 
+            cursor-pointer 
+            transition 
+            duration-300 
+            hover:bg-red-700
+            shadow-lg
+          "
         >
           Se déconnecter
         </button>
@@ -84,68 +103,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-
-const styles: { [key: string]: React.CSSProperties } = {
-  container: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    minHeight: '100vh',
-    backgroundColor: '#f4f6f8',
-    padding: '20px',
-  },
-  card: {
-    backgroundColor: 'white',
-    borderRadius: '10px',
-    padding: '30px',
-    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-    width: '100%',
-    maxWidth: '500px',
-  },
-  title: {
-    color: '#1a1a1a',
-    fontSize: '24px',
-    marginBottom: '30px',
-    textAlign: 'center',
-  },
-  userInfo: {
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: '30px',
-  },
-  avatar: {
-    width: '80px',
-    height: '80px',
-    borderRadius: '40px',
-    marginRight: '20px',
-  },
-  userDetails: {
-    flex: 1,
-  },
-  name: {
-    fontSize: '20px',
-    fontWeight: 'bold',
-    color: '#1a1a1a',
-    marginBottom: '5px',
-  },
-  email: {
-    fontSize: '16px',
-    color: '#666',
-    marginBottom: '5px',
-  },
-  id: {
-    fontSize: '14px',
-    color: '#999',
-  },
-  logoutButton: {
-    width: '100%',
-    padding: '12px',
-    backgroundColor: '#ff4444',
-    color: 'white',
-    border: 'none',
-    borderRadius: '5px',
-    fontSize: '16px',
-    cursor: 'pointer',
-    transition: 'background-color 0.3s',
-  },
-};
