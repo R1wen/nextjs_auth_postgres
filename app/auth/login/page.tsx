@@ -28,10 +28,11 @@ export default function RegisterPage() {
       const data = await response.json();
 
       if (response.ok) {
+        localStorage.setItem('user_data', JSON.stringify(data.user))
         alert('Connexion Réussie');
         router.push('/dashboard');
       } else {
-        setError(data.message || 'Échec de l\'enregistrement.');
+        setError(data.message || 'Échec de la connexion.');
       }
     } catch (err) {
       console.error('Erreur de la requête:', err);
@@ -70,7 +71,7 @@ export default function RegisterPage() {
         {error && <p className='text-red-700 m-3 text-center'>{error}</p>}
 
         <button type="submit" disabled={isLoading} className='bg-blue-800 p-3 rounded-2xl m-4 text-white hover:bg-blue-600 duration-150'>
-          {isLoading ? 'Enregistrement...' : 'S\'enregistrer'}
+          {isLoading ? 'Connexion...' : 'Se connecter'}
         </button>
         <p className='text-[10px] text-center mt-5'>Pas encore de compte ? <a href="/auth/register" className='text-blue-700'>Inscrivez-vous</a></p>
       </form>

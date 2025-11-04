@@ -38,6 +38,7 @@ export default function RegisterPage() {
       setError('Une erreur réseau est survenue. Veuillez réessayer.');
     } finally {
       setIsLoading(false);
+      router.push('/auth/login')
     }
   };
 
