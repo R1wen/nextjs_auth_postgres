@@ -43,10 +43,10 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className='text-black bg-gray-200 flex flex-col justify-center items-center h-screen w-screen'>
+    <div className='text-black bg-linear-to-br from-blue-900 via-gray-700 to-black flex flex-col justify-center items-center h-screen w-screen'>
       <form onSubmit={handleSubmit} className='flex flex-col bg-white p-20 rounded-2xl shadow-2xl w-[500px]'>
         <h1 className='font-semibold text-xl mb-10 text-center'>Créer un compte</h1>
-        <label htmlFor="name" className='font-bold mb-2'>Nom (Optionnel)</label>
+        <label htmlFor="name" className='font-bold mb-2'>Nom</label>
         <input
           type="text"
           id="name"
