@@ -54,7 +54,7 @@ export default function DashboardComponent() {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 p-5">
+    <div className="flex justify-center items-center min-h-screen bg-linear-to-br from-blue-900 via-gray-700 to-black p-5">
       <div className="bg-white rounded-xl p-8 shadow-xl w-full max-w-lg">
         <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center">
           Tableau de bord
